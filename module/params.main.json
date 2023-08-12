@@ -1,0 +1,64 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "appGateWayName": {
+        "value": "yourAppGatewayName"
+      },
+      "location": {
+        "value": "yourLocation"
+      },
+      "applicationGatewaySkuCapacity": {
+        "value": 2
+      },
+      "applicationGatewaySkuName": {
+        "value": "WAF_v2"
+      },
+      "applicationGatwaySkuTier": {
+        "value": "WAF_v2"
+      },
+      "vNetName": {
+        "value": "yourVNetName"
+      },
+      "appGatewaySubnetName": {
+        "value": "yourAppGatewaySubnetName"
+      },
+      "gatewayIPConfigurationsName": {
+        "value": "yourGatewayIPConfigurationsName"
+      },
+      "publicIPAddressName": {
+        "value": "yourPublicIPAddressName"
+      },
+      "frontendPortsName": {
+        "value": "yourFrontendPortsName"
+      },
+      "backendAddressPoolName": {
+        "value": "yourBackendAddressPoolName"
+      },
+      "backendHttpSettingsCollectionName": {
+        "value": "yourBackendHttpSettingsCollectionName"
+      },
+      "httpListenersName": {
+        "value": "yourHttpListenersName"
+      },
+      "httpListenersProtocol": {
+        "value": "https"
+      },
+      "requestRoutingRulesName": {
+        "value": "yourRequestRoutingRulesName"
+      },
+      "requestRoutingRulesRuleType": {
+        "value": "Basic"
+      },
+      "frontendIPConfigurationsName": {
+        "value": "yourFrontendIPConfigurationsName"
+      },
+      "backendHttpSettingsCollectionProtocol": {
+        "value": "https"
+      },
+      "backendHttpSettingsCollectionCookieBasedAffinity": {
+        "value": "Disabled"
+      }
+    }
+  }
+  

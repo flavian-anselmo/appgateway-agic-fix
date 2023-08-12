@@ -1,6 +1,10 @@
 # Application Gateway Ingress (AGIC) Controller Fix For Bicep 
 
 
+**NOTE: Check the codebase to see the full solution** 
+
+
+
 When employing the AGIC add-on in Azure as the ingress controller for your microservices application, a noteworthy challenge arises. During the process of reprovisioning the infrastructure with Bicep, an unfortunate consequence emerges wherein the backend pools are inadvertently lost. This results in a disruption of service to your site, as traffic is unable to traverse through the Ingress. Additionally, the SSL certificates, which play a pivotal role in securing your application, are also forfeited.
 
 Remarkably, this issue has persisted since April of 2021, without a definitive resolution. However, after a considerable period of experimentation and exploration, I have managed to uncover a pragmatic workaround to mitigate the associated disruptions.

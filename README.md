@@ -33,7 +33,8 @@ resource existingAppGateway 'Microsoft.Network/applicationGateways@2022-07-01' =
 
 
 // NEW RESOURCE 
-resource appGateWay 'Microsoft.Network/applicationGateways@2022-07-01' = if(newOrExistingAppGateway=='new'){
+resource appGateWay 'Microsoft.Network/applicationGateways@2022-07-01' = if
+(newOrExistingAppGateway=='new'){
   name: appGateWayName
   location: location
   properties:{}

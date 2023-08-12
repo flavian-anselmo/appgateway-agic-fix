@@ -177,7 +177,7 @@ You won't encounter any downtime. However, during the initial deployment, the pi
 
 Given the choice between a failing pipeline and experiencing downtime, I would opt for a failing pipeline since it doesn't impact any functionality.
 
-### Prevent your pipline from failing 
+### Prevent your pipeline from failing 
 
 To prevent the pipeline from failing, we can compose a bash script that checks for the existence of the application gateway. This script would then set a boolean parameter in Bicep. With an accompanying if condition in Bicep, we can instruct it to disregard the existing reference if the application gateway is absent. This way, the Bicep script can proceed to deploy the actual application gateway, regardless of whether the check returns a true or false result.
 

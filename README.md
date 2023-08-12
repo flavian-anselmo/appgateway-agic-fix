@@ -27,7 +27,8 @@ param newOrExistingAppGateway string = 'existing'
 param appGatewayName string 
 
 // EXISTING RESOURCE 
-resource existingAppGateway 'Microsoft.Network/applicationGateways@2022-07-01' = if(newOrExistingAppGateway=='existing'){
+resource existingAppGateway 'Microsoft.Network/applicationGateways@2022-07-01' = 
+if (newOrExistingAppGateway=='existing'){
   name:appGatewayName
 }
 

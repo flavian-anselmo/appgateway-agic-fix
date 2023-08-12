@@ -7,7 +7,7 @@ param vNetName string
 param appGatewaySubnetName string 
 param gatewayIPConfigurationsName  string 
 
-// PARAMS FOR NEW DEPLOYMENTS 
+// PARAMS FOR NEW DEPLOYMENTS IF THE APPLICATION GATEWAY DOES NOT EXIST 
 param publicIPAddressName  string 
 param frontendPortsName string 
 param backendAddressPoolName string 
@@ -20,60 +20,50 @@ param frontendIPConfigurationsName string
 param backendHttpSettingsCollectionProtocol string 
 param backendHttpSettingsCollectionCookieBasedAffinity string 
 
-/// OUTPUTS FROM EXISTING GATEWAY
-param backendPoolsOutputFromExisting array
-param backendHttpSettingsCollectionOutput array
-param httpListenersOutput array 
-param urlPathsOutput array
-param probeOutput array
-param requestRoutingOutput array
-param frontEndPortOutput array
-param frontEndIpConfigOutput array 
-param sslCertOutput array 
 
 
-
-module actualGateway '../core/actualAppGateway.bicep'={
-  /**
-  using the existing 
-  */
-  name:'actualGateway'
+@description('THis is an actual application gateway provison ')
+module applicationGateway '../core/actualAppGateway.bicep'={
+  name: 'appGateway'
+  dependsOn:[
+    
+  ]
   params:{
-    appGateWayName:appGateWayName
-    appGatewaySubnetName:appGatewaySubnetName
-    applicationGatewaySkuCapacity:applicationGatewaySkuCapacity
-    applicationGatewaySkuName:applicationGatewaySkuName
-    applicationGatwaySkuTier:applicationGatwaySkuTier
-    backendAddressPoolName:backendAddressPoolName
-    backendHttpSettingsCollectionCookieBasedAffinity:backendHttpSettingsCollectionCookieBasedAffinity
-    backendHttpSettingsCollectionName:backendHttpSettingsCollectionName
-    backendHttpSettingsCollectionOutput:backendHttpSettingsCollectionOutput
-    backendHttpSettingsCollectionProtocol:backendHttpSettingsCollectionProtocol
-    backendPoolsOutputFromExisting:backendPoolsOutputFromExisting
-    frontEndIpConfigOutput:frontEndIpConfigOutput
-    frontendIPConfigurationsName:frontendIPConfigurationsName
-    frontEndPortOutput:frontEndPortOutput
-    frontendPortsName:frontendPortsName
-    gatewayIPConfigurationsName:gatewayIPConfigurationsName
-    httpListenersName:httpListenersName
-    httpListenersOutput:httpListenersOutput
-    httpListenersProtocol:httpListenersProtocol
+    appGateWayName: appGateWayName
+    applicationGatewaySkuCapacity: applicationGatewaySkuCapacity
+    applicationGatewaySkuName: applicationGatewaySkuName
+    applicationGatwaySkuTier: applicationGatwaySkuTier
     location:location
-    probeOutput:probeOutput
-    publicIPAddressName:publicIPAddressName
-    requestRoutingOutput:requestRoutingOutput
-    requestRoutingRulesName:requestRoutingRulesName
+    appGatewaySubnetName: appGatewaySubnetName
+    vNetName: vNetName
+    backendAddressPoolName: backendAddressPoolName
+    backendHttpSettingsCollectionCookieBasedAffinity: backendHttpSettingsCollectionCookieBasedAffinity
+    backendHttpSettingsCollectionName: backendHttpSettingsCollectionName
+    backendHttpSettingsCollectionProtocol: backendHttpSettingsCollectionProtocol
+    frontendIPConfigurationsName: frontendIPConfigurationsName
+    frontendPortsName: frontendPortsName
+    gatewayIPConfigurationsName: gatewayIPConfigurationsName
+    httpListenersName: httpListenersName
+    httpListenersProtocol: httpListenersProtocol
+    requestRoutingRulesName: requestRoutingRulesName
     requestRoutingRulesRuleType:requestRoutingRulesRuleType
-    sslCertOutput:sslCertOutput
-    urlPathsOutput:urlPathsOutput
-    vNetName:vNetName
+    publicIPAddressName: publicIPAddressName
+    backendPoolsOutputFromExisting: existingAppGateway.outputs.backendPoolsOutput
+    frontEndPortOutput:existingAppGateway.outputs.frontEndPortsOutput
+    httpListenersOutput:existingAppGateway.outputs.httpListenersOutput
+    probeOutput:existingAppGateway.outputs.probesOutput
+    requestRoutingOutput:existingAppGateway.outputs.requestRoutingRuleOutput
+    sslCertOutput:existingAppGateway.outputs.sslCertOutput
+    urlPathsOutput:existingAppGateway.outputs.urlPathsOutput
+    backendHttpSettingsCollectionOutput:existingAppGateway.outputs.backendHttpSettingsCollectionsOutput
+    frontEndIpConfigOutput:existingAppGateway.outputs.frontEndIpsConfigOutput
   }
 }
 
 
 
-
-module existingGateway '../core/existingAppGateway.bicep' = {
+@description('This refernces the above actual application gateway')
+module existingAppGateway '../core/existingAppGateway.bicep' = {
   name:'existingGateway'
   params:{
     appGateWayName:appGateWayName

@@ -184,14 +184,14 @@ To prevent the pipeline from failing, we can compose a bash script that checks f
 
 ```Bicep
 // ASSUME newOrExistingAppGateway  IS THE VALUE FROM THE BASH SCRIPT OR YOU CAN JUST DO IT MANUALLY 
-param newOrExistingAppGateway bool = true 
+param newOrExistingAppGateway bool = true // true if it exists false if it doesnot exist 
 
 
 param appGatewayName string 
 
 
 // EXISTING RESOURCE 
-resource existingAppGateway 'Microsoft.Network/applicationGateways@2022-07-01' = 
+resource existingAppGateway 'Microsoft.Network/applicationGateways@2022-07-01' existing = 
 if (newOrExistingAppGateway==true){
   name:appGatewayName
 }
@@ -199,7 +199,7 @@ if (newOrExistingAppGateway==true){
 
 // NEW RESOURCE will be deployed even since all conditions are passing 
 resource appGateWay 'Microsoft.Network/applicationGateways@2022-07-01' = if
-(newOrExistingAppGateway==true | newOrExistingAppGateway==false ){
+(newOrExistingAppGateway==true || newOrExistingAppGateway==false ){
   name: appGateWayName
   location: location
   properties:{}

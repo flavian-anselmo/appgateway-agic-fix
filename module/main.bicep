@@ -31,7 +31,11 @@ param frontEndPortOutput array
 param frontEndIpConfigOutput array 
 param sslCertOutput array 
 
-module actualGateway '../actualAppGateway.bicep'={
+
+module actualGateway '../core/actualAppGateway.bicep'={
+  /**
+  using the existing 
+  */
   name:'actualGateway'
   params:{
     appGateWayName:appGateWayName
@@ -66,7 +70,9 @@ module actualGateway '../actualAppGateway.bicep'={
 }
 
 
-module existingGateway '../existingAppGateway.bicep' ={
+
+
+module existingGateway '../core/existingAppGateway.bicep' = {
   name:'existingGateway'
   params:{
     appGateWayName:appGateWayName
